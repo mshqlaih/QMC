@@ -12,10 +12,6 @@ const CORE_ASSETS = [
   'manifest.json',
   'version.json',
   '.last_build_id',
-  // مجلدات كاملة
-  'assets/',
-  'icons/',
-  'canvaskit/',
 ];
 
 self.addEventListener('install', (event) => {
