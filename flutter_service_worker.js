@@ -1,11 +1,12 @@
 'use strict';
 
-const CACHE_NAME = 'qmc-app-cache-v1.12';
+const CACHE_NAME = 'qmc-app-cache-v1.13';
 
 const CORE_ASSETS = [
   './',
   './index.html',
   './main.dart.js',
+  './flutter.js',
 ];
 
 
