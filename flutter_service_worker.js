@@ -1,9 +1,10 @@
 'use strict';
 
-const CACHE_NAME = 'qmc-app-cache-v1.1';
+const CACHE_NAME = 'qmc-app-cache-v1.10';
 
 const CORE_ASSETS = [
-  'index.html',
+ './',
+  './index.html',
 ];
 
 self.addEventListener('install', (event) => {
