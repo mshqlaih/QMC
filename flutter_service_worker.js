@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'qmc-app-cache-v1.14';
+const CACHE_NAME = 'qmc-app-cache-v1.15';
 
 const CORE_ASSETS = [
   './',
@@ -11,10 +11,8 @@ const CORE_ASSETS = [
   './favicon.png',
   './manifest.json',
   './version.json',
-  './.last_build_id',
-  './assets/AssetManifest.json',
+  './assets/AssetManifest.bin.json',
   './assets/FontManifest.json',
-  './assets/NOTICES',
   './icons/Icon-192.png',
   './icons/Icon-512.png',
   './icons/Icon-maskable-192.png',
