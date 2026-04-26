@@ -3,9 +3,27 @@
 const CACHE_NAME = 'qmc-app-cache-v1.10';
 
 const CORE_ASSETS = [
- './',
+  './',
   './index.html',
+  './main.dart.js',
+  './flutter.js',
+  './flutter_bootstrap.js',
+  './favicon.png',
+  './manifest.json',
+  './version.json',
+  './.last_build_id',
+  './assets/AssetManifest.json',
+  './assets/FontManifest.json',
+  './assets/NOTICES',
+  './assets/assets/fonts/Tajawal-Regular.ttf',
+  './icons/Icon-192.png',
+  './icons/Icon-512.png',
+  './icons/Icon-maskable-192.png',
+  './icons/Icon-maskable-512.png',
+  './canvaskit/canvaskit.js',
+  './canvaskit/canvaskit.wasm',
 ];
+
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
