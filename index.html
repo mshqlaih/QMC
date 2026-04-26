@@ -33,7 +33,7 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
-
+  
   <script>
     // كود لاكتشاف التحديثات وتفعيل الـ Install App
     window.addEventListener('load', function(ev) {
@@ -53,6 +53,32 @@
       }
     });
   </script>
+  <div id="loading">
+    <style>
+      #loading {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: white;
+        transition: opacity 1s ease; /* التلاشي التدريجي */
+      }
+      .spinner {
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+    <!-- شعار التطبيق -->
+    <img src="icons/Icon-192.png" class="spinner" alt="Loading...">
+  </div>
+
   <!--
     You can customize the "flutter_bootstrap.js" script.
     This is useful to provide a custom configuration to the Flutter loader
