@@ -1,17 +1,12 @@
 'use strict';
 
-const CACHE_NAME = 'qmc-app-cache-v1';
+const CACHE_NAME = 'qmc-app-cache-v1.1';
 
 const CORE_ASSETS = [
   '/',
   'index.html',
   'main.dart.js',
   'flutter.js',
-  'flutter_bootstrap.js',
-  'favicon.png',
-  'manifest.json',
-  'version.json',
-  '.last_build_id',
 ];
 
 self.addEventListener('install', (event) => {
