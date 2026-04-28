@@ -1,12 +1,13 @@
 'use strict';
 
-const CACHE_NAME = 'qmc-app-cache-v1.20';
+const CACHE_NAME = 'qmc-app-cache-v1.21';
 
 const CORE_ASSETS = [
   './',
   './index.html',
   './main.dart.js',
   './flutter.js',
+  './flutter_bootstrap.js',
   './favicon.png',
   './manifest.json',
   './version.json',
@@ -17,6 +18,10 @@ const CORE_ASSETS = [
   './icons/Icon-512.png',
   './icons/Icon-maskable-192.png',
   './icons/Icon-maskable-512.png',
+  './canvaskit/canvaskit.js',
+  './canvaskit/canvaskit.wasm',
+  './canvaskit/chromium/canvaskit.js',
+  './canvaskit/chromium/canvaskit.wasm',
   './assets/assets/fonts/Tajawal-Regular.ttf',
 ];
 
