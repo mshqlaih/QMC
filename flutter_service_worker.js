@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'qmc-app-cache-v2.0';
+const CACHE_NAME = 'qmc-app-cache-v2.1';
 
 const CORE_ASSETS = [
   './',
