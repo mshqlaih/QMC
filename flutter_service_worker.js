@@ -77,7 +77,9 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   const requestUrl = new URL(event.request.url);
-
+  if (isOldDevice() && requestUrl.pathname.includes('canvaskit')) {
+    return; // سيؤدي هذا لفشل الطلب ومنع التحميل
+  }
   if (requestUrl.pathname.startsWith('/qmc/')) {
     // network-first للـ API
     event.respondWith(
