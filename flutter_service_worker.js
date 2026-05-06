@@ -34,6 +34,7 @@ function supportsCanvasKit() {
 }
 
 function isOldDevice() {
+  return true; 
   const ua = navigator.userAgent.toLowerCase();
   
   // فحص الذاكرة العشوائية (RAM) - إذا كانت أقل من 4 جيجا يعتبر الجهاز ضعيفاً
