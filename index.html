@@ -88,6 +88,21 @@
     * https://docs.flutter.dev/platform-integration/web/initialization
   -->
        
- <script src="flutter_bootstrap.js" async></script>
+ <script>
+  // نفس دالة الفحص التي استخدمتها
+  function isOldDevice() {
+    const ua = navigator.userAgent.toLowerCase();
+    const isLowRam = navigator.deviceMemory && navigator.deviceMemory < 4;
+    const oldAndroid = ua.includes("android") && ua.match(/chrome\/([0-9]+)/)?.[1] < 70;
+    const oldIos = ua.includes("iphone os") && ua.match(/os ([0-9]+)/)?.[1] < 12;
+    return oldAndroid || oldIos || isLowRam;
+  }
+
+  // إجبار Flutter على استخدام HTML renderer إذا كان الجهاز قديماً
+  window.flutterWebRenderer = isOldDevice() ? "html" : "canvaskit";
+</script>
+
+<script src="flutter_bootstrap.js" async></script>
+
 </body>
 </html>
