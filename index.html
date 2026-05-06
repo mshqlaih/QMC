@@ -88,8 +88,7 @@
     * https://docs.flutter.dev/platform-integration/web/initialization
   -->
        
- <script>
-  // نفس دالة الفحص التي استخدمتها
+<script>
   function isOldDevice() {
     const ua = navigator.userAgent.toLowerCase();
     const isLowRam = navigator.deviceMemory && navigator.deviceMemory < 4;
@@ -98,11 +97,13 @@
     return oldAndroid || oldIos || isLowRam;
   }
 
-  // إجبار Flutter على استخدام HTML renderer إذا كان الجهاز قديماً
-  window.flutterWebRenderer = isOldDevice() ? "html" : "canvaskit";
+  // ضبط الإعدادات بشكل مباشر لـ Flutter Bootstrap
+  window.flutterConfiguration = {
+    renderer: isOldDevice() ? "html" : "canvaskit"
+  };
 </script>
-
 <script src="flutter_bootstrap.js" async></script>
+
 
 </body>
 </html>
