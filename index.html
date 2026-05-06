@@ -33,7 +33,7 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
-  <link rel="preload" href="main.dart.js" as="script">
+
   <script>
     // كود لاكتشاف التحديثات وتفعيل الـ Install App
     window.addEventListener('load', function(ev) {
@@ -87,21 +87,6 @@
     For more details:
     * https://docs.flutter.dev/platform-integration/web/initialization
   -->
-       
-<script>
-  function isOldDevice() {
-    const ua = navigator.userAgent.toLowerCase();
-    const isLowRam = navigator.deviceMemory && navigator.deviceMemory < 4;
-    const oldAndroid = ua.includes("android") && ua.match(/chrome\/([0-9]+)/)?.[1] < 70;
-    const oldIos = ua.includes("iphone os") && ua.match(/os ([0-9]+)/)?.[1] < 12;
-    return oldAndroid || oldIos || isLowRam;
-  }
-
-  // ضبط الإعدادات بشكل مباشر لـ Flutter Bootstrap
-  window.flutterConfiguration = {
-    renderer: isOldDevice() ? "html" : "canvaskit"
-  };
-</script>
 <script src="flutter_bootstrap.js" async></script>
 
 
