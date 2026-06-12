@@ -33,26 +33,11 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
-  
-  <script>
-    // كود لاكتشاف التحديثات وتفعيل الـ Install App
-    window.addEventListener('load', function(ev) {
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('flutter_service_worker.js?v=' + new Date().getTime())
-        .then(function(reg) {
-          reg.onupdatefound = function() {
-            var installingWorker = reg.installing;
-            installingWorker.onstatechange = function() {
-              if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                // هنا يتم إشعار المتصفح بوجود نسخة جديدة
-                console.log('New content is available; please refresh.');
-              }
-            };
-          };
-        });
-      }
-    });
-  </script>
+  <!--
+    ملاحظة: لا تسجّل service worker يدويًا هنا.
+    flutter_bootstrap.js (في الأسفل) يسجّل الـ SW المولّد من Flutter تلقائيًا
+    مع إصدار صحيح مبني على بصمة المحتوى (يحدّث الكاش عند كل نشر).
+  -->
   <div id="loading">
     <style>
       #loading {
