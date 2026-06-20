@@ -34,18 +34,9 @@
 </head>
 <body>
   <!--
-    ✅ نسجّل SW حقيقيًا يخزّن قشرة التطبيق ليعمل offline بثبات (مهم لـ iOS).
-    SW الخاص بـ Flutter مُعطّل عبر البناء بـ --pwa-strategy=none.
+    لا نسجّل SW مخصّصًا (تجربة iOS PWA أثبتت عدم موثوقيته).
+    flutter_bootstrap.js يدير الـ SW المولّد من Flutter (يُلغي القديم تلقائيًا).
   -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function () {
-        navigator.serviceWorker.register('sw.js').catch(function (e) {
-          console.warn('SW registration failed:', e);
-        });
-      });
-    }
-  </script>
   <div id="loading">
     <style>
       #loading {
