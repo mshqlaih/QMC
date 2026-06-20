@@ -34,10 +34,18 @@
 </head>
 <body>
   <!--
-    ملاحظة: لا تسجّل service worker يدويًا هنا.
-    flutter_bootstrap.js (في الأسفل) يسجّل الـ SW المولّد من Flutter تلقائيًا
-    مع إصدار صحيح مبني على بصمة المحتوى (يحدّث الكاش عند كل نشر).
+    ✅ نسجّل SW حقيقيًا يخزّن قشرة التطبيق ليعمل offline بثبات (مهم لـ iOS).
+    SW الخاص بـ Flutter مُعطّل عبر البناء بـ --pwa-strategy=none.
   -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('sw.js').catch(function (e) {
+          console.warn('SW registration failed:', e);
+        });
+      });
+    }
+  </script>
   <div id="loading">
     <style>
       #loading {
