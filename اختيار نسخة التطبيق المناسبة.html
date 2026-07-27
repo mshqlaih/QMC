@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تحميل برنامج الصفوة</title>
+  <style>
+    :root {
+      --brown: #6d4c41;
+      --brown-dark: #4e342e;
+      --bg: #f7f4f1;
+      --card: #ffffff;
+      --text: #2b2b2b;
+      --muted: #8a7f78;
+      --line: #e6ded9;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, "Noto Sans Arabic", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .card {
+      background: var(--card);
+      width: 100%;
+      max-width: 420px;
+      border-radius: 20px;
+      padding: 28px 22px 24px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.08);
+      text-align: center;
+    }
+    .logo {
+      width: 84px; height: 84px; margin: 0 auto 14px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--brown), var(--brown-dark));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 40px;
+    }
+    h1 { font-size: 22px; margin: 0 0 4px; color: var(--brown-dark); }
+    .sub { color: var(--muted); font-size: 14px; margin: 0 0 20px; }
+
+    .status {
+      background: #f0ede9;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 14px;
+      margin-bottom: 18px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .status.ok { background: #eef7ee; border-color: #cfe6cf; color: #2e7d32; }
+    .status.warn { background: #fff8e6; border-color: #f2e2b0; color: #a1730a; }
+
+    .btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 14px;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform .06s ease, opacity .2s;
+    }
+    .btn:active { transform: scale(.98); }
+    .btn-primary { background: var(--brown); color: #fff; }
+    .btn-primary.hidden { display: none; }
+
+    .other {
+      margin-top: 14px;
+      display: inline-block;
+      color: var(--muted);
+      font-size: 13px;
+      text-decoration: none;
+      border-bottom: 1px dashed var(--muted);
+      padding-bottom: 2px;
+    }
+    .both { display: none; gap: 10px; flex-direction: column; }
+    .both.show { display: flex; }
+    .btn-outline {
+      background: transparent; color: var(--brown-dark);
+      border: 1.5px solid var(--line); font-weight: 600; font-size: 15px;
+    }
+
+    .note {
+      margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line);
+      color: var(--muted); font-size: 12.5px; line-height: 1.7; text-align: right;
+    }
+    .note b { color: var(--text); }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">📖</div>
+    <h1>برنامج الصفوة</h1>
+    <p class="sub">تحميل تطبيق تحفيظ القرآن الكريم</p>
+
+    <div id="status" class="status">⏳ جارٍ تحديد نوع جهازك…</div>
+
+    <!-- الزرّ الموصى به (يظهر عند نجاح الكشف) -->
+    <a id="primaryBtn" class="btn btn-primary hidden" href="#"></a>
+
+    <!-- رابط النسخة الأخرى (احتياطي) -->
+    <a id="otherLink" class="other" href="#" style="display:none"></a>
+
+    <!-- عند تعذّر الكشف: أظهِر الخيارين -->
+    <div id="both" class="both">
+      <a class="btn btn-primary" href="#" data-modern>⬇️ للأجهزة الحديثة (64-بت) — الأغلب</a>
+      <a class="btn btn-outline" href="#" data-legacy>⬇️ للأجهزة القديمة جداً (32-بت)</a>
+    </div>
+
+    <div class="note">
+      <b>طريقة التثبيت:</b> بعد التنزيل، افتح الملف واسمح بـ «التثبيت من مصادر غير معروفة» إن طُلب منك.<br>
+      💡 غالبية الأجهزة الحديثة (منذ ٢٠١٩ تقريباً) هي 64-بت.
+    </div>
+  </div>
+
+  <script>
+    // روابط «الأحدث دائماً» من صفحة إصدارات المستودع
+    const URL_MODERN = "https://github.com/mshqlaih/QMC/releases/latest/download/qmc-modern.apk"; // 64-بت
+    const URL_LEGACY = "https://github.com/mshqlaih/QMC/releases/latest/download/qmc-v7a.apk";    // 32-بت
+
+    const statusEl  = document.getElementById("status");
+    const primary   = document.getElementById("primaryBtn");
+    const otherLink = document.getElementById("otherLink");
+    const both      = document.getElementById("both");
+
+    // اربط أزرار «الخيارين» بالروابط
+    both.querySelector("[data-modern]").href = URL_MODERN;
+    both.querySelector("[data-legacy]").href = URL_LEGACY;
+
+    // يعرض زرّاً واحداً موصى به + رابط البديل
+    function recommend(is64) {
+      const url      = is64 ? URL_MODERN : URL_LEGACY;
+      const otherUrl = is64 ? URL_LEGACY : URL_MODERN;
+
+      statusEl.className = "status ok";
+      statusEl.textContent = is64
+        ? "✅ جهازك حديث (64-بت)"
+        : "✅ جهازك من فئة 32-بت";
+
+      primary.href = url;
+      primary.textContent = "⬇️ تحميل التطبيق";
+      primary.classList.remove("hidden");
+
+      otherLink.href = otherUrl;
+      otherLink.textContent = is64
+        ? "جهازي قديم جداً (32-بت)؟ حمّل النسخة الأخرى"
+        : "جهازي حديث؟ حمّل النسخة الأخرى";
+      otherLink.style.display = "inline-block";
+    }
+
+    // عند تعذّر الكشف: أظهِر الخيارين معاً
+    function showBoth() {
+      statusEl.className = "status warn";
+      statusEl.textContent = "⚠️ لم نتمكّن من تحديد جهازك تلقائياً — اختر النسخة المناسبة";
+      both.classList.add("show");
+    }
+
+    (async function detect() {
+      try {
+        // UA Client Hints — مدعومة على متصفّحات أندرويد (Chrome/Edge/Samsung…)
+        const uaData = navigator.userAgentData;
+        if (uaData && uaData.getHighEntropyValues) {
+          const hv = await uaData.getHighEntropyValues(["bitness", "architecture"]);
+          if (hv.bitness === "64") return recommend(true);
+          if (hv.bitness === "32") return recommend(false);
+        }
+        // fallback: أغلب الأجهزة 64-بت → نوصي بها ونُبقي رابط البديل ظاهراً
+        recommend(true);
+        statusEl.className = "status warn";
+        statusEl.textContent = "ℹ️ يُنصح بنسخة الأجهزة الحديثة (إن لم تعمل، جرّب رابط البديل)";
+      } catch (e) {
+        showBoth();
+      }
+    })();
+  </script>
+</body>
+</html>
