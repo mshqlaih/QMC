@@ -86,6 +86,17 @@
   }
   .brand .app { font-weight: 600; font-size: 15.5px; line-height: 1.5; }
   .brand .app small { display: block; font-weight: 400; opacity: .78; font-size: 13px; }
+  /* رجوع إلى التطبيق — في وضع «التطبيق المثبَّت» وحده (آيفون من الشاشة الرئيسية):
+     لا شريط متصفّح فيه ولا زرّ رجوع، فتعلق الصفحة بلا مخرج */
+  .back {
+    margin-inline-start: auto; flex: none; cursor: pointer;
+    font: inherit; font-size: 14px; font-weight: 600; color: #fff;
+    background: rgba(255, 255, 255, .14); border: 1px solid rgba(255, 255, 255, .28);
+    border-radius: 999px; padding: 6px 14px;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .back:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .back[hidden] { display: none; }
   .hero h1 {
     font-family: "Noto Kufi Arabic", "IBM Plex Sans Arabic", sans-serif;
     margin: 26px 0 10px; font-size: 34px; line-height: 1.4; font-weight: 700;
@@ -261,6 +272,10 @@
     <div class="brand">
       <img src="../icons/Icon-192.png" alt="">
       <div class="app">تطبيق الصفوة لمتابعة الحلقات القرآنية<small>ملاحظات الإصدار</small></div>
+      <button class="back" id="back" type="button" hidden>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        رجوع إلى التطبيق
+      </button>
     </div>
     <h1>ما الجديد</h1>
     <div class="meta" id="meta"></div>
@@ -290,6 +305,23 @@
   var CHEV = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
 
   var data = null, filter = 'all';
+
+  // ⬅️ رجوع إلى التطبيق (2026-10-25): مقرئةٌ على آيفون علقت هنا. التطبيق
+  //    المثبَّت من الشاشة الرئيسية يفتح الصفحة في نافذته نفسها بلا شريط
+  //    متصفّح. في المتصفّح وCustom Tabs زرّ الرجوع موجود، فلا يظهر الزرّ.
+  //    الرجوع بعدد ما أضافته الصفحة من سجلّ (#v= للإصدارات الأخرى)، وإن
+  //    بقيت الصفحة (فُتحت في نافذةٍ جديدة) فإلى التطبيق مباشرةً.
+  var standalone = window.navigator.standalone === true ||
+    (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
+  if (standalone) {
+    var startLen = history.length;
+    var back = document.getElementById('back');
+    back.hidden = false;
+    back.addEventListener('click', function () {
+      history.go(-(history.length - startLen + 1));
+      setTimeout(function () { location.href = '../'; }, 600);
+    });
+  }
 
   function params() {
     var out = {};
