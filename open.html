@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>فتح الصفوة</title>
+<!--
+  🔔 صفحة الجسر لإشعارات الجهاز (2026-11-09) — QMC_PUSH_PKG.send يجعلها وجهة
+  كل إشعار (كان APEX يفتح تطبيق 102 ⇒ صفحة دخول APEX).
+    ?app=staff|parent&open=…&…   (بقيّة المعاملات تمرّ كما هي)
+  أندرويد: يفتح التطبيق برابط safwa://open?… (intent بحزمته)؛ فإن لم يكن مثبّتًا
+           أو كان إصداره أقدم من الرابط ⇒ Chrome ينتقل إلى نسخة الويب (fallback).
+  غيره:    نسخة الويب بالمعاملات نفسها مباشرةً.
+-->
+<style>
+  :root { --bg:#f4f7f5; --card:#fff; --ink:#1d2b24; --muted:#5d6f66; --brand:#1f7a52; --brand-ink:#fff; --line:#dde6e1; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg:#101614; --card:#18211d; --ink:#e7efe9; --muted:#9db1a6; --brand:#3fae7d; --brand-ink:#0d1411; --line:#2a3631; }
+  }
+  :root[data-theme="dark"] { --bg:#101614; --card:#18211d; --ink:#e7efe9; --muted:#9db1a6; --brand:#3fae7d; --brand-ink:#0d1411; --line:#2a3631; }
+  * { box-sizing: border-box; }
+  body { margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+         background:var(--bg); color:var(--ink); padding:16px;
+         font-family: system-ui, "Segoe UI", Tahoma, sans-serif; }
+  .card { width:100%; max-width:420px; background:var(--card); border:1px solid var(--line);
+          border-radius:16px; padding:28px 22px; text-align:center; }
+  img { width:72px; height:72px; border-radius:16px; }
+  h1 { font-size:20px; margin:14px 0 6px; }
+  p { color:var(--muted); font-size:15px; line-height:1.7; margin:6px 0; }
+  .btn { display:block; margin:18px 0 0; padding:14px; border-radius:12px; text-decoration:none;
+         font-size:17px; font-weight:600; background:var(--brand); color:var(--brand-ink); }
+  .alt { display:block; margin-top:14px; color:var(--brand); font-size:15px; }
+  .hidden { display:none; }
+</style>
+</head>
+<body>
+<div class="card">
+  <img src="icons/Icon-192.png" alt="">
+  <h1 id="title">جارٍ فتح التطبيق…</h1>
+  <div id="android" class="hidden">
+    <p>إن لم يُفتح التطبيق وحده فاضغط الزرّ.</p>
+    <a id="openApp" class="btn" href="#">افتح في التطبيق</a>
+    <p>بعد أن يُفتح التطبيق يمكنك إغلاق هذه الصفحة.</p>
+    <a id="openWeb" class="alt" href="#">أو افتح نسخة الويب</a>
+    <a id="download" class="alt" href="https://safwa-app.github.io/download.html">ليس عندك التطبيق؟ نزّله</a>
+  </div>
+</div>
+<script>
+(function () {
+  var p = new URLSearchParams(location.search);
+  var parent = p.get('app') === 'parent';
+  p.delete('app');
+  var qs = p.toString();
+  var web = (parent ? 'https://safwa-app.github.io/' : new URL('./', location.href).href)
+            + (qs ? '?' + qs : '');
+
+  if (!/Android/i.test(navigator.userAgent)) {
+    location.replace(web);
+    return;
+  }
+
+  var pkg = parent ? 'com.qmc.safwa_guardian' : 'com.example.qmcapp';
+  var intent = 'intent://open' + (qs ? '?' + qs : '') + '#Intent;scheme=safwa;package=' + pkg
+             + ';S.browser_fallback_url=' + encodeURIComponent(web) + ';end';
+
+  document.getElementById('openApp').href = intent;
+  document.getElementById('openWeb').href = web;
+  document.getElementById('android').classList.remove('hidden');
+  document.getElementById('title').textContent = parent ? 'الصفوة لمتابعة الطالب' : 'الصفوة';
+  // محاولةٌ تلقائيّة — قد يمنعها المتصفّح بلا لمسة، فيبقى الزرّ
+  try { location.href = intent; } catch (e) {}
+})();
+</script>
+</body>
+</html>
